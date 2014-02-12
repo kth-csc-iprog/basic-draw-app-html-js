@@ -14,8 +14,8 @@ var CanvasView = function(container,model) {
 			var svgShape; 
 			if (shape.type == 'ellipse') {
 				svgShape = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
-				svgShape.setAttribute("cx",shape.x + shape.w/2);
-				svgShape.setAttribute("cy",shape.y + shape.h/2);
+				svgShape.setAttribute("cx",Number(shape.x) + Number(shape.w/2));
+				svgShape.setAttribute("cy",Number(shape.y) + Number(shape.h/2));
 				svgShape.setAttribute("rx",shape.w/2);
 				svgShape.setAttribute("ry",shape.h/2);
 			}
@@ -30,8 +30,8 @@ var CanvasView = function(container,model) {
 				svgShape = document.createElementNS('http://www.w3.org/2000/svg', 'line');
 				svgShape.setAttribute("x1",shape.x);
 				svgShape.setAttribute("y1",shape.y);
-				svgShape.setAttribute("x2",shape.x + shape.w);
-				svgShape.setAttribute("y2",shape.y + shape.h);
+				svgShape.setAttribute("x2",Number(shape.x) + Number(shape.w));
+				svgShape.setAttribute("y2",Number(shape.y) + Number(shape.h));
 			}
 
 			svgShape.setAttribute("style","fill-opacity:0;stroke:black;stroke-width:1");

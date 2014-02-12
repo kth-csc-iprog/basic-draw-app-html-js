@@ -2,7 +2,7 @@ var FormCtrl = function(view,model) {
 
 	var selectedShape;
 
-	view.container.find("input").change( function() {
+	view.container.find("input").on('input', function() {
 		if (selectedShape) {
 			model.updateShape(selectedShape,
 				view.container.find("#x").val(),
@@ -14,8 +14,8 @@ var FormCtrl = function(view,model) {
 
 	view.list.change( function(){
 		if (this.selectedIndex >= 0) {
-			console.log($(this).val());
 			selectedShape = model.getShapes()[this.selectedIndex];
+			view.selectShape(this.selectedIndex);
 		} else {
 			selectedShape = null;
 		}

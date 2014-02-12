@@ -13,13 +13,19 @@ var FormView = function(container,model) {
 		for (var i = 0; i<model.getShapes().length; i++) {
 			var shape = model.getShapes()[i];
 			var option = $("<option/>");
-			option.text(shape.type + "=>" + shape.x + "x" + shape.y);
+			option.text(shape.type + ":" + shape.x + ", " + shape.y + ", " + shape.h + ", " + shape.w);
 			list.append(option);
 		}
 
-		if (selectedShape) {
+	}
 
-		}
+	this.selectShape = function(index) {
+		selectedShape = index;
+		shape = model.getShapes()[index];
+		container.find("#x").val(shape.x);
+		container.find("#y").val(shape.y);
+		container.find("#h").val(shape.h);
+		container.find("#w").val(shape.w);
 	}
 
 	this.update = function() {

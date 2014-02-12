@@ -10,10 +10,10 @@
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
 
   </head>
-  <body class="container" ng-controller="CanvasCtrl">
+  <body class="container">
     <h1>Basic Draw App - <small>AngularJS</small></h1>
     <div class="row">
-      <div id="canvasView" class="col-xs-6">
+      <div id="canvasView" class="col-xs-6" ng-controller="CanvasCtrl">
         <div>
           <button class="btn btn-sm btn-default" ng-class="{active:activeShape == 'ellipse'}" ng-click="activeShape = 'ellipse'">
             Ellipse
@@ -25,16 +25,16 @@
             Segment
           </button>
         </div>
-        <svg>
-          <ellipse ng-repeat="c in circles | filter:'ellipse'" ng-attr-cx="{{c.x+c.w/2}}" ng-attr-cy="{{c.y+c.h/2}}" ng-attr-rx="{{Math.abs(c.w/2)}}" ng-attr-ry="{{Math.abs(c.h/2)}}" style="fill-opacity:0;stroke:black;stroke-width:1" ng-click="setSelected(c)"/>
-          <rect ng-repeat="c in circles | filter:'rectangle'" ng-attr-x="{{c.x}}" ng-attr-y="{{c.y}}" ng-attr-width="{{Math.abs(c.w)}}" ng-attr-height="{{Math.abs(c.h)}}" style="fill-opacity:0;stroke:black;stroke-width:1" />
-          <line ng-repeat="c in circles | filter:'segment'" ng-attr-x1="{{c.x}}" ng-attr-y1="{{c.y}}" ng-attr-x2="{{c.x + c.w}}" ng-attr-y2="{{c.y + c.h}}" style="stroke:black;stroke-width:1"/>
+        <svg ng-mousedown="startDrawShape($event)" ng-mouseup="stopDrawShape()" ng-mousemove="updateDrawShape($event)">
+          <ellipse ng-repeat="shape in shapes | filter:'ellipse'" ng-attr-cx="{{shape.x+shape.w/2}}" ng-attr-cy="{{shape.y+shape.h/2}}" ng-attr-rx="{{Math.abs(shape.w/2)}}" ng-attr-ry="{{Math.abs(shape.h/2)}}" style="fill-opacity:0;stroke:black;stroke-width:1" ng-click="setSelected(shape)"/>
+          <rect ng-repeat="shape in shapes | filter:'rectangle'" ng-attr-x="{{shape.x}}" ng-attr-y="{{shape.y}}" ng-attr-width="{{Math.abs(shape.w)}}" ng-attr-height="{{Math.abs(shape.h)}}" style="fill-opacity:0;stroke:black;stroke-width:1" />
+          <line ng-repeat="shape in shapes | filter:'segment'" ng-attr-x1="{{shape.x}}" ng-attr-y1="{{shape.y}}" ng-attr-x2="{{shape.x + shape.w}}" ng-attr-y2="{{shape.y + shape.h}}" style="stroke:black;stroke-width:1"/>
         </svg>
       </div>
-      <div id="formView" class="col-xs-6">
+      <div id="formView" class="col-xs-6" ng-controller="FormCtrl">
         <div class="col-xs-6">
             <select id="shapeList" multiple class="form-control" size="10">
-              <option ng-repeat="c in circles" ng-click="setSelected(c)">{{c.type}}=>{{c.x}}x{{c.y}}</option>
+              <option ng-repeat="shape in shapes" ng-click="setSelected(shape)">{{shape.type}}:{{shape.x}}, {{shape.y}}, {{shape.h}}, {{shape.w}}</option>
             </select>
         </div>
         <div class="col-xs-6 form-horizontal">
@@ -75,6 +75,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.12/angular.min.js"></script>
     <!-- Include our application libraries -->
     <script src="js/app.js"></script>
+    <script src="js/services/shapeModel.js"></script>
+    <script src="js/controllers/canvasCtrl.js"></script>
+    <script src="js/controllers/formCtrl.js"></script>
 
   </body>
 </html>
