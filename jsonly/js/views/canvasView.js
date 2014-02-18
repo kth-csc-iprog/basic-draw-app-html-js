@@ -52,5 +52,6 @@ var CanvasView = function(container,model) {
 
 	model.addObserver(this);
 
+	// Finally we want to load all the shapes on initialization
 	loadShapes();
 };
