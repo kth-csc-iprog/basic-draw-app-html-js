@@ -22,9 +22,16 @@ var FormView = function(container,model) {
 		list.html("");
 		for (var i = 0; i<model.getShapes().length; i++) {
 			var shape = model.getShapes()[i];
-			var option = $("<option/>");
+			// Changed to li for drag and drop to work
+			// var option = $("<option/>");
+			var option = $("<li/>");
 			option.text(shape.type + ":" + shape.x + ", " + shape.y + ", " + shape.h + ", " + shape.w);
 			list.append(option);
+			
+			// Apart from creating the list objects we also need to make them 
+			// draggable and attach our drag controller to each.
+			option.attr("draggable",true);
+			DragCtrl(option,model,shape);
 		}
 
 	}
@@ -38,6 +45,10 @@ var FormView = function(container,model) {
 		container.find("#y").val(shape.y);
 		container.find("#h").val(shape.h);
 		container.find("#w").val(shape.w);
+		
+		// Added for the drag and drop change
+		list.children().removeClass("selected");
+		list.children().eq(index).addClass("selected");
 	}
 
 	// The observer update function, triggered by the model when there are changes

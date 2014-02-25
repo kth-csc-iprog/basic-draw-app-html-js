@@ -29,6 +29,44 @@ var ShapesModel = function () {
 		this.notifyObservers();
 	}
 
+	// Following methods are added to support Drag and Drop modifications
+
+	// Remove the passed shape from the model
+	this.removeShape = function(shape) {
+		shapes.splice(shapes.indexOf(shape),1);
+		this.notifyObservers();
+	}
+
+	// Parse the passed text and transform it to shape
+	// It expects to get lines of text where shape properties are of from:
+	// key=value
+	// For instance
+	// type=rectangle
+	// x=10
+	// y=10
+	// h=100
+	// w=100
+	// Lines without such form are ignored
+	this.addShapeFromText = function(text) {
+		var shape = new Object();
+		var attrs = text.split("\n");
+		for(var i=0; i<attrs.length; i++) {
+			if(attrs[i].indexOf("=")>=1) {
+				var key = attrs[i].split("=")[0]
+				var value = attrs[i].split("=")[1]
+				shape[key] = value;
+			}
+		}
+		shapes.push(shape);
+		this.notifyObservers();
+	}
+
+	// Transforms the shape to text output as described in addShapeFromText comment
+	this.getShapeToText = function(shape) {
+		s = shapes[shapes.indexOf(shape)]
+		return "type=" + s.type + "\nx=" + s.x + "\ny=" + s.y + "\nh=" + s.h + "\nw=" + s.w;
+	}
+
 	/*****************************************  
 	      Observable implementation    
 	*****************************************/

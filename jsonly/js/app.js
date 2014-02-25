@@ -14,4 +14,7 @@ $(function() {
 	var formView = new FormView($("#formView"),model);
 	// Instantiate the controller and pass it the view and model
 	var formCtrl = new FormCtrl(formView, model);
+
+	// Advanced part: Drag and Drop 
+	var dragAndDropCtrl = new DropCtrl(formView, model);
 });

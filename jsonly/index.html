@@ -9,6 +9,9 @@
     <!-- Bootstrap -->
     <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
 
+    <!-- Our styles -->
+    <link rel="stylesheet" href="css/style.css">
+
   </head>
   <body class="container" ng-controller="CanvasCtrl">
     <h1>Basic Draw App - <small>JS only (ok, with jQuery as well)</small></h1>
@@ -34,8 +37,13 @@
       <!-- Form view -->
       <div id="formView" class="col-xs-6">
         <div class="col-xs-6">
+          <!-- Because Drag and Drop doesn't work on select, we needed to replace
+               it with a unordered list (ul). This required some minor modifications
+               in the formView and formCtrl. The original versions are commented out.
           <select id="shapeList" multiple class="form-control" size="10">
-          </select>
+          </select> -->
+          <ul id="shapeList" size="10" >
+          </ul>
         </div>
         <div class="col-xs-6 form-horizontal">
           <div class="form-group">
@@ -79,5 +87,11 @@
     <script src="js/views/formView.js"></script>
     <script src="js/controllers/canvasCtrl.js"></script>
     <script src="js/controllers/formCtrl.js"></script>
+
+
+    <!-- Drag and Drop controllers-->
+    <script src="js/controllers/dropCtrl.js"></script>
+    <script src="js/controllers/dragCtrl.js"></script>
+
   </body>
 </html>
